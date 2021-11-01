@@ -1,15 +1,21 @@
-"""Зарегистрируйтесь на одном (или нескольких) из сайтов:
+"""
+Открытая задача.
+
+Зарегистрируйтесь на одном (или нескольких) из сайтов:
 https://py.checkio.org/ , https://www.codewars.com, https://www.hackerrank.com/,
-https://acmp.ru И решите 1-5 задач уровня Elementary и advanced. Поместите 3 простых
-и 2 сложных задачи на Ваш выбор в пул реквест."""
+https://acmp.ru и решите 1-5 задач уровня Elementary и advanced. Поместите 3 простых
+и 2 сложных задачи на Ваш выбор в пул реквест.
+"""
 
 
 from string import ascii_lowercase
 
 
 def square_sum(numbers: list[int]) -> int:
-    """Complete the square sum function so that it squares each number
-    passed into it and then sums the results together.
+    """Square(n) sum.
+
+    Complete the square sum function.
+    It must square each number passed into it and then sum the results together.
     For example, for [1, 2, 2] it should return 9 because 1^2 + 2^2 + 2^2 = 9.
     @ https://www.codewars.com/kata/515e271a311df0350d00000f/train/python/
     """
@@ -17,7 +23,9 @@ def square_sum(numbers: list[int]) -> int:
 
 
 def descending_order(num: int) -> int:
-    """Your task is to make a function that can take any non-negative integer as an argument
+    """Descending order.
+
+    Your task is to make a function that can take any non-negative integer as an argument
     and return it with its digits in descending order. Essentially, rearrange the digits
     to create the highest possible number.
     Examples:
@@ -32,7 +40,8 @@ def descending_order(num: int) -> int:
 
 
 def is_isogram(string: str) -> bool:
-    """
+    """Isograms.
+
     An isogram is a word that has no repeating letters, consecutive or non-consecutive.
     Implement a function that determines whether a string that contains only letters
     is an isogram. Assume the empty string is an isogram. Ignore letter case.
@@ -46,7 +55,8 @@ def is_isogram(string: str) -> bool:
 
 
 def sum_pairs(ints: list[int], sum_to_match: int) -> list[int]:
-    """
+    """Sum of pairs.
+
     Given a list of integers and a single sum value, return the first two values
     (parse from the left please) in order of appearance that add up to form the sum.
 
@@ -76,7 +86,6 @@ def sum_pairs(ints: list[int], sum_to_match: int) -> list[int]:
     Be sure your code doesn't time out.
     @ https://www.codewars.com/kata/54d81488b981293527000c8f/train/python/
     """
-
     lefts = set()  # a set of all left elements of a potential pair
     for num in ints:
         # we have a pair if there is a number left in lefts such that left + num == s
@@ -87,7 +96,8 @@ def sum_pairs(ints: list[int], sum_to_match: int) -> list[int]:
 
 
 def alphabet_position(text: str) -> str:
-    """
+    """Replace With Alphabet Position.
+
     In this kata you are required to, given a string,
     replace every letter with its position in the alphabet.
     If anything in the text isn't a letter, ignore it and don't return it.

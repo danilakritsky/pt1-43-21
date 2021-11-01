@@ -1,6 +1,9 @@
-"""Даны: три стороны треугольника. Требуется: проверить, действительно ли это
-стороны треугольника. Если стороны определяют треугольник, найти его площадь.
-Если нет, вывести сообщение о неверных данных."""
+"""Даны: три стороны треугольника.
+
+Требуется: проверить, действительно ли это стороны треугольника.
+Если стороны определяют треугольник, найти его площадь.
+Если нет, вывести сообщение о неверных данных.
+"""
 
 
 def get_positive_int(prompt: str) -> int:
@@ -13,8 +16,7 @@ def get_positive_int(prompt: str) -> int:
 
 
 def main() -> None:
-    """Prompt the user for three sides of a triangle and compute the area
-    of the triangle if valid side lengths have been provided."""
+    """Prompt the user for three sides of a triangle and compute its area."""
     template = 'Enter the length of the {side_num} side:\n'
     prompts = ['first', 'second', 'third']
     sides = [

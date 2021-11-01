@@ -1,10 +1,12 @@
-"""Посчитать количество строчных (маленьких) и прописных (больших) букв в
-введенной строке. Учитывать только английские буквы."""
+"""
+Посчитать количество строчных (маленьких) и прописных (больших) букв в введенной строке.
+
+Учитывать только английские буквы.
+"""
 
 
 def main() -> None:
-    """Print the number of lowercase and uppercase alphabetic characters
-    in a string."""
+    """Print the number of lowercase and uppercase alphabetic characters in a string."""
     while True:
         if (input_str := input('Enter a string:\n')):
             break

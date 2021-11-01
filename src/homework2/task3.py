@@ -1,11 +1,11 @@
 """Вводится строка. Требуется удалить из нее повторяющиеся символы и все пробелы.
+
 Например, если было введено "abc cde def", то должно быть выведено "abcdef".
 """
 
 
 def main() -> None:
-    """Strip all repeating characters and whitespace from a string
-    and print the result."""
+    """Strip all repeating characters and whitespace from a string and print the result."""
     while True:
         if (input_str := input('Enter a string:\n')):
             break
