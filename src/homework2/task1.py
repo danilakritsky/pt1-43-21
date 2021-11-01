@@ -7,13 +7,12 @@ Output: Общая цена 9 рублей 60 копеек"""
 
 
 def get_input(prompt: str) -> int:
-    """Prompt user for input unless he passes a whole positive number."""
+    """Prompt user for a non-negative integer and return it."""
     while True:
         user_input = input(prompt)
         if user_input.isdigit():
             return int(user_input)
-        print('Please provide a whole positive number!')
-        continue
+        print('Please, provide a non-negative integer!')
 
 
 def main() -> None:
