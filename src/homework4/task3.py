@@ -1,5 +1,4 @@
-"""
-Tuple practice.
+"""Tuple practice.
 
 Создайте кортеж из одного элемента, чтобы при итерировании по этому элементу
 последовательно выводились значения 1, 2, 3. Убедитесь что len() исходного кортежа
@@ -8,8 +7,7 @@ Tuple practice.
 
 
 def main() -> None:
-    """
-    Create a 1-tuple.
+    """Create a 1-tuple.
 
     Iterating through the tuple's single element should yied 1, 2, 3.
     """

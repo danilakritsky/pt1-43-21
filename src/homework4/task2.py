@@ -1,5 +1,4 @@
-"""
-List practice.
+"""List practice.
 
 1. Используйте генератор списков чтобы получить следующий: ['ab', 'ac', 'ad', 'bb', 'bc', 'bd'].
 2. Используйте на предыдущий список slice чтобы получить следующий: ['ab', 'ad', 'bc'].
@@ -13,7 +12,9 @@ List practice.
 def main() -> None:
     """Perform list transformations according to the task instructions."""
     orig_ls = [a + b for a in 'ab' for b in 'bcd']
-    assert orig_ls == ['ab', 'ac', 'ad', 'bb', 'bc', 'bd'], "Expected ['ab', 'ac', 'ad', 'bb', 'bc', 'bd']."
+    assert orig_ls == ['ab', 'ac', 'ad', 'bb', 'bc', 'bd'], (
+        "Expected ['ab', 'ac', 'ad', 'bb', 'bc', 'bd']."
+    )
     assert orig_ls[::2] == ['ab', 'ad', 'bc'], "Expected ['ab', 'ad', 'bc']."
 
     orig_ls = [str(num) + 'a' for num in range(1, 5)]
