@@ -14,7 +14,7 @@ def gcd_euclid(first: int, second: int) -> int:
         return max(pair)
     if first < second:
         first, second = second, first
-    while (remainder := first % second) != 0:
+    while (remainder := first % second):
         first, second = second, remainder
     return second
 
