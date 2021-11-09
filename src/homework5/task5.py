@@ -29,15 +29,15 @@ import re
 
 def get_positive_int(prompt: str) -> int:
     """Prompt user until he inputs a positive integer."""
-    while not (pos_int__match := re.search(r'^(?!^[0]$)\d+$', input(prompt))):
+    while not (pos_int_match := re.search(r'^(?!^[0]$)\d+$', input(prompt))):
         continue
-    return int(pos_int__match[0])
+    return int(pos_int_match[0])
 
 
 def get_word(prompt: str) -> str:
     """Prompt user for input until he inputs a non-empty alhpabetic word.
 
-    Compounds can be input if enclosed in double quotes (e.g. "Costa Rico").
+    Compounds can be input if enclosed in double quotes (e.g. "Costa Rica").
     """
     while not (match := re.search(r"^(\"\w.*?\w\"|\w[-\w']+)$", input(prompt))):
         continue
@@ -67,14 +67,14 @@ def main() -> None:
         students_langs.extend(list(set(cur_stud_langs)))  # remove duplicates
 
     langs_count = Counter(students_langs)
-    print('Languages known by all the students:')
-    for lang, count in langs_count.items():
+    print('Languages all the students know:')
+    for lang, count in langs_count.copy().items():
         if count == student_count:
             print(lang)
-    print('Languages known by at least one student:')
+            langs_count.pop(lang)
+    print('Languages only some students know:')
     for lang, count in langs_count.items():
-        if count < student_count:
-            print(lang)
+        print(lang)
 
 
 if __name__ == '__main__':
