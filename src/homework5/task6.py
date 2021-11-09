@@ -13,7 +13,7 @@ def main() -> None:
     """Count the number of unqiue words in the input text.
 
     A word is a sequence of non-whitespace elements. Words are separated by one or more
-    whitespace characters of newlines.
+    whitespace characters.
     """
     Prompt = namedtuple('Prompt', ['initial', 'continued'])
     prompt = Prompt(
