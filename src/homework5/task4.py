@@ -8,7 +8,10 @@ from collections import namedtuple
 
 
 def difference_count(first_list: list[int], second_list: list[int]) -> tuple[int, int]:
-    """For 2 input lists return the count of unique numbers present only in this list as a tuple."""
+    """Return the count of unique numbers in each list.
+
+    Numbers present in both lists are excluded.
+    """
     first_set, second_set = (set(lst) for lst in (first_list, second_list))
     return len(first_set - second_set), len(second_set - first_set)
 
