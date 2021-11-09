@@ -23,7 +23,8 @@ French
 """
 
 
-from collections import Counter, namedtuple
+from collections import Counter
+from collections import namedtuple
 import re
 
 
