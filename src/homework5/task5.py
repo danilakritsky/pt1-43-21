@@ -35,7 +35,7 @@ def get_positive_int(prompt: str) -> int:
 
 
 def get_word(prompt: str) -> str:
-    """Prompt user for input until he inputs a non-empty alhpabetic word.
+    """Prompt user for input until he inputs a non-empty alphabetic word.
 
     Compounds can be input if enclosed in double quotes (e.g. "Costa Rica").
     """
@@ -52,7 +52,7 @@ def main() -> None:
     Prompt = namedtuple('Prompt', ['student_count', 'student_lang_count', 'lang'])
     prompt = Prompt(
         'Enter the number of students (>= 1):\n',
-        'Enter the number of languages the student {} knows (>= 1):\n',
+        'Enter the number of languages student {} knows (>= 1):\n',
         'Enter language {} (use double quotes to enter compounds):\n'
     )
     student_count = get_positive_int(prompt.student_count)
