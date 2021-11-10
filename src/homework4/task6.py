@@ -9,10 +9,8 @@
 
 def move_zeros(lst: list):
     """Move all zeroes to the right side of the list."""
-    for idx, val in enumerate(lst):
-        if val == 0:
-            lst.append(lst.pop(idx))
-    return lst
+    no_zeros = [el for el in lst if el != 0]
+    return no_zeros + [0] * (len(lst) - len(no_zeros))
 
 
 def test_move_zeros():
