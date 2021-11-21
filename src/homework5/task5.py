@@ -25,24 +25,8 @@ French
 
 from collections import Counter
 from collections import namedtuple
-import re
 
-
-def get_positive_int(prompt: str) -> int:
-    """Prompt user until he inputs a positive integer."""
-    while not (pos_int_match := re.search(r'^(?!^[0]$)\d+$', input(prompt))):
-        continue
-    return int(pos_int_match[0])
-
-
-def get_word(prompt: str) -> str:
-    """Prompt user for input until he inputs a non-empty alphabetic word.
-
-    Compounds can be input if enclosed in double quotes (e.g. "Costa Rica").
-    """
-    while not (match := re.search(r"^(\"\w.*?\w\"|\w[-\w']+)$", input(prompt))):
-        continue
-    return match[0]
+from task2 import prompt_until_match
 
 
 def main() -> None:
@@ -50,20 +34,49 @@ def main() -> None:
 
     Print the languages known by all the students, followed by languages at least one student knows.
     """
-    Prompt = namedtuple('Prompt', ['student_count', 'student_lang_count', 'lang'])
-    prompt = Prompt(
+    UserInput = namedtuple('UserInput', ['student_count', 'student_lang_count', 'lang'])
+    prompt = UserInput(
         'Enter the number of students (>= 1):\n',
         'Enter the number of languages student {} knows (>= 1):\n',
         'Enter language {} (use double quotes to enter compounds):\n'
     )
-    student_count = get_positive_int(prompt.student_count)
+
+    failed_msg = UserInput(
+        'Please, provide an integer greater than 1!'.upper(),
+        'Please, provide an integer greater than 1!'.upper(),
+        'Please, provide a valid language name!'.upper(),
+    )
+
+    patterns = UserInput(
+        pos_int := r'^(?!^[0]$)\d+$',
+        pos_int,
+        r"^(\"\w.*?\w\"|\w[-\w']+)$"
+    )
+
+    student_count = int(
+        prompt_until_match(
+            patterns.student_count,
+            prompt.student_count,
+            failed_msg.student_count,
+        )[0]
+    )
 
     students_langs = []
-    for student in range(student_count):
-        student_lang_count = get_positive_int(prompt.student_lang_count.format(student + 1))
+    for student in range(1, student_count + 1):
+        student_lang_count = int(
+            prompt_until_match(
+                patterns.student_lang_count,
+                prompt.student_lang_count.format(student),
+                failed_msg.student_lang_count,
+            )[0]
+        )
+
         cur_stud_langs = []
-        for lang_num in range(student_lang_count):
-            lang = get_word(prompt.lang.format(lang_num + 1))
+        for lang_num in range(1, student_lang_count + 1):
+            lang = prompt_until_match(
+                patterns.lang,
+                prompt.lang.format(lang_num),
+                failed_msg.lang)[0]
             cur_stud_langs.append(lang)
         students_langs.extend(list(set(cur_stud_langs)))  # remove duplicates
 
@@ -73,9 +86,11 @@ def main() -> None:
         if count == student_count:
             print(lang)
             langs_count.pop(lang)
-    print('Languages only some students know:')
-    for lang, count in langs_count.items():
-        print(lang)
+
+    print(
+        'Languages only some students know:',
+        *(langs_count.keys() if langs_count.keys() else ('None',)),
+        sep='\n')
 
 
 if __name__ == '__main__':

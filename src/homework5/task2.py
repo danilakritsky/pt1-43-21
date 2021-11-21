@@ -32,49 +32,91 @@ from collections import namedtuple
 import re
 
 
-def main():
+def prompt_until_match(regex: str, prompt: str, failed_msg: str) -> list[str]:
+    """Prompt user for input until it matches a regular expression."""
+    while not (match := re.findall(regex, input(prompt))):
+        print(failed_msg)
+        continue
+    return match
+
+
+def main() -> None:
     """Prompt user for consecutive inputs of country names followed by its cities.
 
     Then iteratively prompt the user for city names and return the country the city belongs to.
     """
-    Prompt = namedtuple('Prompt', ['country_num', 'city_list', 'city_num', 'city'])
-    prompt = Prompt(
-        'Enter the number of countries (>= 2):\n',
-        ('Enter a country name followed by its cities (at least 1) separated by space.\n'
-            '(use double quotes to specify composite names like \"New York\"):\n'),
-        'Enter the number of cities to search:\n',
-        'Enter the city name:\n'
-    )
-    while not (num_match := re.search(r'^(?!^[01]$)\d+$', input(prompt.country_num))):
-        continue
-    country_count = int(num_match[0])
+    UserInputs = namedtuple('UserInputs', ['country_num', 'city_list', 'city_num', 'city'])
 
-    location_pattern = re.compile(
-        r"""(
+    prompt = UserInputs(
+        'Enter the number of countries (>= 2):\n> ',
+        ('Enter the name for the country number {} followed by its cities (at least 1) '
+            'separated by space\n'
+            '(use double quotes to specify composite names like \"New York\"):\n> '),
+        'Enter the number of cities to search:\n> ',
+        'Enter the name of the city number {}:\n> '
+    )
+
+    fail_msg = UserInputs(
+        'Please, provide a positive number greater than 1!'.upper(),
+        'Please, provide a valid country name followed by at least one of its cities!'.upper(),
+        'Please, provide a positive number!'.upper(),
+        'Please provide a valid city name!'.upper()
+    )
+
+    pattern = UserInputs(
+        r'^(?!^[01]$)\d+$',  # integer greater than 1
+        location_pattern := re.compile(
+            r"""(
             \"\w.*?\w\"    # multi word names like "St. Louis", must be passed in double quotes!
             |
             \w[-\w']+      # single word names, accounted for names like Санкт-Петербург, O'Fallon
             )
-        """,
-        re.VERBOSE
+            """,
+            re.VERBOSE
+        ),
+        r'^(?!^[0]$)\d+$',  # positive integer
+        location_pattern
     )
 
+    # get the country count
+    country_count = (
+        int(prompt_until_match(
+            pattern.country_num,
+            prompt.country_num,
+            fail_msg.country_num)[0]
+            )
+    )
+
+    # get cities
     locations_dict = {}
-    for _ in range(country_count):
+    for country_num in range(1, country_count + 1):
         # prompt until at least one city is input
-        while len(string_match := re.findall(location_pattern, input(prompt.city_list))) < 2:
-            continue
-        country, *cities = string_match
+        while True:
+            match = prompt_until_match(
+                pattern.city_list,
+                prompt.city_list.format(country_num),
+                fail_msg.city_list)
+            if len(match) >= 2:
+                break
+            print('Please, provide at least one country and one city!'.upper())
+        country, *cities = match
         locations_dict.update({city: country for city in cities})
 
-    while not (num_match := re.search(r'^(?!^[0]$)\d+$', input(prompt.city_num))):
-        continue
-    city_count = int(num_match[0])
+    # get the city count
+    city_count = (
+        int(prompt_until_match(
+            pattern.city_num,
+            prompt.city_num,
+            fail_msg.city_num)[0]
+            )
+    )
 
-    city_pattern = r"^(\"\w.*?\w\"|\w[-\w']+)$"
-    for _ in range(city_count):
-        while not (city_match := re.match(city_pattern, input(prompt.city))):
-            continue
+    # get city names
+    for city_num in range(1, city_count + 1):
+        city_match = prompt_until_match(
+            pattern.city,
+            prompt.city.format(city_num),
+            fail_msg.city)
         print(locations_dict.get(city_match[0], 'City not found.'))
 
 

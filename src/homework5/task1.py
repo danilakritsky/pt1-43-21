@@ -5,17 +5,9 @@
 """
 
 
-def main() -> None:
+def main() -> dict:
     """Create a dict via a dict comprehension.
 
     Keys are numbers from 1 to 20, values are cubes of its keys.
     """
-    dict_ = {num: num ** 3 for num in range(1, 21)}
-    assert isinstance(dict_, dict), 'Wrong type!'
-    assert list(dict_.keys()) == (nums := list(range(1, 21))), 'Wrong keys!'
-    assert list(dict_.values()) == list(map(lambda x: pow(x, 3), nums)), 'Wrong values!'
-    print('Tests passed.')
-
-
-if __name__ == '__main__':
-    main()
+    return {num: num ** 3 for num in range(1, 21)}

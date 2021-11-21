@@ -26,7 +26,7 @@ def main() -> None:
     text = '\n'.join(lines)
     if not text:
         raise SystemExit('No text has been input.')
-    print(f'This text contains {len(set(text.split()))} unique words.')
+    print(f'Unique words count: {len(set(text.split()))}')
 
 
 if __name__ == '__main__':
