@@ -17,7 +17,7 @@ class FakeModule():
 
 
 # pylint: disable = W0511
-# TODO: create a function factory
+# TODO(Danila): create a function factory
 def set_up() -> None:
     """Set up the global namespace."""
     for module in MODULE_NAMES:
@@ -32,7 +32,7 @@ def set_up() -> None:
                 setattr(globals()[module], name, globals().pop(name))
 
 
-# TODO: refactor to remove duplication
+# TODO(Danila): refactor to remove duplication
 def runner(*args: str) -> None:
     """Run each function in the passed as an argument."""
     mod_message = 'From {}:'

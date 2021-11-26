@@ -16,8 +16,9 @@ ENCODING = 'utf-8'
 CALL_HISTORY_CACHE = pathlib.Path('task2_cache')
 
 # pylint: disable = W0511
-# TODO: refactor - move functions to a class, add a method to clear history
-# TODO: make decorator return a new function-like class with an attribute to pass mypy checks
+# TODO(Danila): refactor - move functions to a class, add a method to clear historya
+# TODO(Danila): make decorator return a new function-like class with an attribute
+# (to pass mypy checks)
 
 
 def init_db() -> None:

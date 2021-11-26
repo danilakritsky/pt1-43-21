@@ -3,8 +3,8 @@
 import unittest
 from unittest import TestCase
 
-from ddt import ddt     # type: ignore
 from ddt import data    # type: ignore
+from ddt import ddt     # type: ignore
 from ddt import unpack  # type: ignore
 
 from task7 import greatest_divisor

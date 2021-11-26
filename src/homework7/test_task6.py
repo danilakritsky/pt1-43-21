@@ -1,21 +1,21 @@
 """Tests for task6.py."""
 
-import io
 import unittest
 from unittest import TestCase
-from unittest.mock import patch
 
-from ddt import ddt, data, unpack  # type: ignore
+from ddt import data    # type: ignore
+from ddt import ddt     # type: ignore
+from ddt import unpack  # type: ignore
 
 from task6 import closest_pow_of_two
-from task6 import printout
 
-# TODO: printout test
+# TODO(Danila): printout test
+
 
 @ddt
 class TestSumOfBinRepr(TestCase):
     """Test case for the closest_pow_of_two() function."""
-    
+
     @data(None, int, [1, 3], '1')
     def test_wrong_type(self, arg):
         """Test for wrong argument types."""

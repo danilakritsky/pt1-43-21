@@ -13,8 +13,8 @@ c. Программа создает 3 файла top250_movies.txt – назв
 from collections import Counter
 from pathlib import Path
 import re
-from typing import Callable
 from typing import Any
+from typing import Callable
 from zipfile import ZipFile
 
 TOP_MOVIES_COUNT = 250

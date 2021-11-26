@@ -3,7 +3,9 @@
 import unittest
 from unittest import TestCase
 
-from ddt import ddt, data, unpack  # type: ignore
+from ddt import data    # type: ignore
+from ddt import ddt     # type: ignore
+from ddt import unpack  # type: ignore
 
 from task4 import sum_of_bin_repr
 

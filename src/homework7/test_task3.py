@@ -3,11 +3,13 @@
 import unittest
 from unittest import TestCase
 
-from ddt import ddt, data, unpack  # type: ignore
+from ddt import data    # type: ignore
+from ddt import ddt     # type: ignore
+from ddt import unpack  # type: ignore
 
+from task3 import ArgumentError
 from task3 import get_ranges
 from task3 import validate_input
-from task3 import ArgumentError
 
 
 @ddt
