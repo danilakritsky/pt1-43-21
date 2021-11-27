@@ -4,8 +4,9 @@ import io
 import unittest
 from unittest.mock import patch
 
-from task2 import main
 from task2 import prompt_until_match
+from task2 import query_data
+from task2 import store_data
 
 
 class TestPromptUntilMatch(unittest.TestCase):
@@ -19,32 +20,44 @@ class TestPromptUntilMatch(unittest.TestCase):
 
     @patch('builtins.input', side_effect=['failure', 'match'])
     @patch('sys.stdout', new_callable=io.StringIO)
-    def test_fail_msg(self, mock_stdout, mock_input):
+    def test_fail_msg(self, mock_stdout, _):
         """Test the print message after a failed match."""
-        # pylint: disable=W0613 - disable the unused-argument error for mock_input
         prompt_until_match('match', 'prompt', 'fail_msg')
         self.assertEqual(mock_stdout.getvalue(), 'fail_msg\n')
 
     @patch('builtins.input', return_value='match')
-    def test_return_value(self, mock_input):
+    def test_return_value(self, _):
         """Test the return value."""
-        # pylint: disable=W0613
         result = prompt_until_match('match', 'prompt', 'fail_msg')
         self.assertEqual(result[0], 'match')
 
 
-class TestMain(unittest.TestCase):
+class TestStoreData(unittest.TestCase):
+    """Test case for the store_data() function."""
+
+    @patch('builtins.input', side_effect=['2', 'Belarus Minsk', 'Germany Berlin'])
+    def test_output(self, _):
+        """Test the output of the store_data() function."""
+        result = store_data()
+        self.assertEqual(result, {'Minsk': 'Belarus', 'Berlin': 'Germany'})
+
+
+class TestQueryData(unittest.TestCase):
     """Test case for the main() function."""
 
-    @patch('builtins.input', side_effect=[
-        '2', 'Belarus Minsk', 'Germany Berlin', '2', 'Minsk', 'Berlin']
-    )
+    @patch('builtins.input', side_effect=['2', 'Minsk', 'Berlin'])
     @patch('sys.stdout', new_callable=io.StringIO)
-    def test_output(self, mock_stdout, mock_input):
-        """Test the output of the main() function."""
-        # pylint: disable=W0613
-        main()
+    def test_output(self, mock_stdout, _):
+        """Test the output of the query_data() function."""
+        query_data({'Minsk': 'Belarus', 'Berlin': 'Germany'})
         self.assertEqual(mock_stdout.getvalue(), 'Belarus\nGermany\n')
+
+    @patch('builtins.input', side_effect=['2', '"New York"', 'Rome'])
+    @patch('sys.stdout', new_callable=io.StringIO)
+    def test_nonexistent_city(self, mock_stdout, _):
+        """Test the output of the query_data() function when a city is not found."""
+        query_data({'Minsk': 'Belarus', 'Berlin': 'Germany'})
+        self.assertEqual(mock_stdout.getvalue(), 'City not found.\n' * 2)
 
 
 if __name__ == '__main__':

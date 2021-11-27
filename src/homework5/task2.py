@@ -28,25 +28,16 @@ Russia
 Russia
 """
 
+
 from collections import namedtuple
 import re
 
 
-def prompt_until_match(regex: str, prompt: str, failed_msg: str) -> list[str]:
-    """Prompt user for input until it matches a regular expression."""
-    while not (match := re.findall(regex, input(prompt))):
-        print(failed_msg)
-        continue
-    return match
+UserInputs = namedtuple('UserInputs', ['country_num', 'city_list', 'city_num', 'city'])
 
 
-def main() -> None:
-    """Prompt user for consecutive inputs of country names followed by its cities.
-
-    Then iteratively prompt the user for city names and return the country the city belongs to.
-    """
-    UserInputs = namedtuple('UserInputs', ['country_num', 'city_list', 'city_num', 'city'])
-
+def set_up() -> tuple[UserInputs, ...]:
+    """Return the user input variables for the main function to use."""
     prompt = UserInputs(
         'Enter the number of countries (>= 2):\n> ',
         ('Enter the name for the country number {} followed by its cities (at least 1) '
@@ -55,14 +46,12 @@ def main() -> None:
         'Enter the number of cities to search:\n> ',
         'Enter the name of the city number {}:\n> '
     )
-
     fail_msg = UserInputs(
         'Please, provide a positive number greater than 1!'.upper(),
         'Please, provide a valid country name followed by at least one of its cities!'.upper(),
         'Please, provide a positive number!'.upper(),
         'Please provide a valid city name!'.upper()
     )
-
     pattern = UserInputs(
         r'^(?!^[01]$)\d+$',  # integer greater than 1
         location_pattern := re.compile(
@@ -77,6 +66,21 @@ def main() -> None:
         r'^(?!^[0]$)\d+$',  # positive integer
         location_pattern
     )
+
+    return prompt, fail_msg, pattern
+
+
+def prompt_until_match(regex: str, prompt: str, failed_msg: str) -> list[str]:
+    """Prompt user for input until it matches a regular expression."""
+    while not (match := re.findall(regex, input(prompt))):
+        print(failed_msg)
+        continue
+    return match
+
+
+def store_data() -> dict:
+    """Prompt user for consecutive inputs of country names followed by its cities."""
+    prompt, fail_msg, pattern = set_up()
 
     # get the country count
     country_count = (
@@ -102,6 +106,12 @@ def main() -> None:
         country, *cities = match
         locations_dict.update({city: country for city in cities})
 
+    return locations_dict
+
+
+def query_data(locations_dict: dict) -> None:
+    """Prompt the user for city names and return the country the city belongs to."""
+    prompt, fail_msg, pattern = set_up()
     # get the city count
     city_count = (
         int(prompt_until_match(
@@ -121,4 +131,4 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    main()
+    query_data(store_data())
