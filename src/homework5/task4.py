@@ -9,6 +9,10 @@ def difference_count(first_list: list[int], second_list: list[int]) -> tuple[int
 
     Numbers present in both lists are excluded.
     """
+    for input_list in (first_list, second_list):
+        if not (isinstance(input_list, list) and all(isinstance(elem, int) for elem in input_list)):
+            raise TypeError('Expected list of ints.')
+
     first_set, second_set = (set(lst) for lst in (first_list, second_list))
     unique_in_first, unique_in_second = len(first_set - second_set), len(second_set - first_set)
     print(
