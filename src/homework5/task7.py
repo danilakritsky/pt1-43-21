@@ -10,6 +10,9 @@ def gcd_euclid(first: int, second: int) -> int:
 
     0 is considered natural.
     """
+    if not (isinstance(first + second, int) and all((val >= 0 for val in (first, second)))):
+        raise TypeError('Expected 2 non-negative integers')
+
     if 0 in (pair := (first, second)):  # additionally handles the (0, 0) case
         return max(pair)
     if first < second:
