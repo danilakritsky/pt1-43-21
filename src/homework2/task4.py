@@ -15,7 +15,8 @@ def main() -> None:
         if char.isalpha():
             if char.islower():
                 lower_count += 1
-            upper_count += 1
+            else:
+                upper_count += 1
     print(f'Lowercase count: {lower_count}. Uppercase count: {upper_count}')
 
 
