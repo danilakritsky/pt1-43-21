@@ -92,13 +92,13 @@ def _num_to_progress_bar(cur_num: int, min_num: int, max_num: int, bar_width: in
     """Create a progress bar given a min, max and current number."""
     progress_bar = (
         SAVE_CURSOR_POSITION
-        + '['
-        + ('#' * (cur_iter := int(
+        + '['  # noqa: W503
+        + ('#' * (cur_iter := int(  # noqa: W503
             (cur_pct := (cur_num - min_num) / (max_num - min_num)) * bar_width)))
-        + (bar_width - cur_iter) * ' '
-        + ']'
-        + ' '
-        + f'{cur_pct * 100:0.1f}%'
+        + (bar_width - cur_iter) * ' '  # noqa: W503
+        + ']'  # noqa: W503
+        + ' '  # noqa: W503
+        + f'{cur_pct * 100:0.1f}%'  # noqa: W503
     )
     return progress_bar
 

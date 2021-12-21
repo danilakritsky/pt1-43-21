@@ -10,6 +10,7 @@
 
 import string
 
+
 def get_count_by_case(input_str: str) -> tuple[int, int]:
     """Print the number of lowercase and uppercase alphabetic characters in a string."""
     lower_count, upper_count = (0, 0)
